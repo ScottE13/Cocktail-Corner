@@ -28,7 +28,7 @@ class Cocktail(db.Model):
     # Cocktail Schema
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.Integer, db.ForeignKey(
-        "users.id", ondelete="CASCADE"), nullable=False)
+        "user.id", ondelete="CASCADE"), nullable=False)
     category = db.Column(db.Integer, db.ForeignKey(
         "category.id", ondelete="CASCADE"), nullable=False)
     cocktail_name = db.Column(db.String(50), unique=True, nullable=False)
