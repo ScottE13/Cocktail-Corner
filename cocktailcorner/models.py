@@ -16,7 +16,7 @@ class User(db.Model):
 class Category(db.Model):
     # Category Schema
     id = db.Column(db.Integer, primary_key=True)
-    category_name = db.Column(db.string(25), unique=True, nullable=False)
+    category_name = db.Column(db.String(25), unique=True, nullable=False)
     cocktails = db.relationship("Cocktail", backref="category",
                                 cascade="all, delete", lazy=True)
 
@@ -31,10 +31,10 @@ class Cocktail(db.Model):
         "users.id", ondelete="CASCADE"), nullable=False)
     category = db.Column(db.Integer, db.ForeignKey(
         "category.id", ondelete="CASCADE"), nullable=False)
-    cocktail_name = db.Column(db.string(50), unique=True, nullable=False)
-    ingredients = db.Column(db.string, nullable=False)
-    method = db.Column(db.string)
-    picture = db.Column(db.string)
+    cocktail_name = db.Column(db.String(50), unique=True, nullable=False)
+    ingredients = db.Column(db.String, nullable=False)
+    method = db.Column(db.String)
+    picture = db.Column(db.String)
 
     def __repr__(self):
         return self.cocktail_name
