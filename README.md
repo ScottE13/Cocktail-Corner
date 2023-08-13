@@ -33,6 +33,9 @@ As an administrator of the website I want to:
 
 # Database Model
 
+An initial database plan was modelled using [dbdiagram.io](https://dbdiagram.io/home) 
+
+![Database Model](cocktailcorner/database_model.jpg) <br>
 - - -
 
 # UX Design
