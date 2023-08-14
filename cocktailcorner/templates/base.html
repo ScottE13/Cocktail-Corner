@@ -21,8 +21,12 @@
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">Menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('home') }}">Home</a></li>
+                    {% if session.current_user %}
+                    <li><a href="{{ url_for('account', username=session['current_user']) }}">Account</a></li>
+                    {% else %}
                     <li><a href="{{ url_for('register') }}">Register</a></li>
                     <li><a href="{{ url_for('log_in') }}">Log In</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
