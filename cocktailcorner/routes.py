@@ -40,10 +40,17 @@ def register():
         # Add user to the session
         session["current_user"] = request.form.get("username").lower()
         flash("Registration Successful!")
-        return redirect(url_for("register", username=session["current_user"]))
+        return redirect(url_for("account", username=session["current_user"]))
     return render_template("register.html")
 
 
 @app.route("/log_in")
 def log_in():
     return render_template("log_in.html")
+
+@app.route("/account/<username>", methods=["GET", "POST"])
+def account(username):
+    if "current_user" in session:
+        return render_template("account.html", username=session["current_user"])
+
+    return redirect(url_for("login"))
