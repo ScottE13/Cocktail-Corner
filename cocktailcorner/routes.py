@@ -42,3 +42,8 @@ def register():
         flash("Registration Successful!")
         return redirect(url_for("register", username=session["current_user"]))
     return render_template("register.html")
+
+
+@app.route("/log_in")
+def log_in():
+    return render_template("log_in.html")
