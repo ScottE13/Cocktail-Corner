@@ -44,8 +44,30 @@ def register():
     return render_template("register.html")
 
 
-@app.route("/log_in")
+@app.route("/log_in", methods=["GET", "POST"])
 def log_in():
+    if request.method == "POST":
+        # Check to see if the username exists
+        existing_user = User.query.filter(User.username ==
+                                          request.form.get(
+                                              "username").lower()).all()
+
+        if existing_user:
+            request.form.get("username")
+            if check_password_hash(
+                    existing_user[0].password, request.form.get("password")):
+                session["current_user"] = request.form.get("username").lower()
+                return redirect(url_for("account", username=session["current_user"]))
+
+            else:
+                # Password Incorrect
+                flash('Invalid Username or Password.')
+                return redirect(url_for("log_in"))
+        else:
+            # Username Incorrect
+            flash('Invalid Username or Password.')
+            return redirect(url_for("log_in"))
+
     return render_template("log_in.html")
 
 @app.route("/account/<username>", methods=["GET", "POST"])
