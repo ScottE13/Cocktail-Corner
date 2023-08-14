@@ -5,7 +5,7 @@ class User(db.Model):
     # User Schema
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(25), unique=True, nullable=False)
-    password = db.Column(db.String(25), nullable=False)
+    password = db.Column(db.String(250), nullable=False)
     users = db.relationship("Cocktail", backref="user",
                             cascade="all, delete", lazy=True)
 
@@ -29,7 +29,7 @@ class Cocktail(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.Integer, db.ForeignKey(
         "user.id", ondelete="CASCADE"), nullable=False)
-    category = db.Column(db.Integer, db.ForeignKey(
+    cocktail_category = db.Column(db.Integer, db.ForeignKey(
         "category.id", ondelete="CASCADE"), nullable=False)
     cocktail_name = db.Column(db.String(50), unique=True, nullable=False)
     ingredients = db.Column(db.String, nullable=False)
