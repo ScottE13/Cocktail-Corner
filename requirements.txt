@@ -6,4 +6,4 @@ greenlet==2.0.2
 itsdangerous==2.1.2
 psycopg2==2.9.7
 SQLAlchemy==2.0.19
-Werkzeug==2.3.6
+Werkzeug==2.3.7
