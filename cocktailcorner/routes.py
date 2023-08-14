@@ -53,4 +53,12 @@ def account(username):
     if "current_user" in session:
         return render_template("account.html", username=session["current_user"])
 
-    return redirect(url_for("login"))
+    return redirect(url_for("log_in"))
+
+@app.route("/log_out")
+def logout():
+    # Remove user from the session
+    session.pop("current_user")
+    session.pop('_flashes', None)
+    flash("You have successfully logged out!")
+    return redirect(url_for("log_in"))

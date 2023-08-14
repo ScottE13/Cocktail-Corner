@@ -3,4 +3,10 @@
 
 <h3 class="center-align">You are currently logged in as {{ username }}</h3>
 
+<div class="row">
+    <div class="col s12 center-align">
+        <a href="{{ url_for('logout') }}" class="waves-effect waves-light btn-large">Log Out</a>
+    </div>
+</div>
+
 {% endblock %}
