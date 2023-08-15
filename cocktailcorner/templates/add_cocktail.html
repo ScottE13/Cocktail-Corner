@@ -5,30 +5,46 @@
 
 <div class="row card-panel">
     <form class="col s12" method="POST" action="{{ url_for('add_cocktail') }}">
-        <!-- Select Category -->
-        <div class="input-field col s12">
-            <select name="cocktail_category" id="cocktail_category" class="validate" required>
-                <option value="" disabled selected>Choose your category</option>
-                {% for category in categories %}
+        <div class="row">
+            <!-- Cocktail Name-->
+            <div class="input-field col s8">
+                <input id="cocktail_name" name="cocktail_name" maxlength="50" type="text" class="validate" required />
+                <label for="cocktail_name">Cocktail Name</label>
+            </div>
+        
+            <!-- Select Category -->
+            <div class="input-field col s4">
+                <select name="cocktail_category" id="cocktail_category" class="validate" required>
+                    <option value="" disabled selected>Choose your category</option>
+                    {% for category in categories %}
                     <option value="{{ category.id }}">{{ category.category_name }}</option>
-                {% endfor %}
-            </select>
-            <label for="cocktail_category">Cocktail Category</label>
+                    {% endfor %}
+                </select>
+                <label for="cocktail_category">Cocktail Category</label>
+            </div>
         </div>
-        <!-- Password -->
-        <!-- <div class="row">
+    
+        <!-- Ingredients -->
+        <div class="row">
             <div class="input-field col s12">
-                <input id="password" name="password" type="password" minlength="5" maxlength="25" class="validate" required>
-                <label for="password">Create Password</label>
+              <textarea id="ingredients" name="ingredients" class="materialize-textarea validate" required></textarea>
+              <label for="ingredients">Cocktail Ingredients</label>
             </div>
-        </div> -->
-        <!-- Password Confirmation -->
-        <!-- <div class="row">
+        </div>
+        <!-- Method -->
+        <div class="row">
             <div class="input-field col s12">
-                <input id="password2" name="password2" type="password" minlength="5" maxlength="25" class="validate" required>
-                <label for="password2">Confirm Password</label>
+              <textarea id="method" name="method" class="materialize-textarea validate"></textarea>
+              <label for="method">Mixing Method (Optional)</label>
             </div>
-        </div> -->
+        </div>
+        <!-- Image URL -->
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="picture" name="picture" type="url" class="validate"/>
+                <label for="picture">Image URL (Optional)</label>
+            </div>
+        </div>
 
         <section>
             <!-- Flash Message -->
