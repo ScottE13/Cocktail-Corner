@@ -137,11 +137,24 @@ def delete_category(category_id):
     return redirect(url_for("manage_categories"))
 
 
-@app.route("/add_cocktail.html")
+@app.route("/add_cocktail.html", methods=["GET", "POST"])
 def add_cocktail():
     # Only allow logged in users to access this page
     if "current_user" in session:
         categories = list(Category.query.order_by(Category.category_name).all())
+        if request.method == 'POST':
+            cocktail = Cocktail(
+                author = User.query.filter_by(username = session["current_user"]).first().id,
+                cocktail_category = request.form.get("cocktail_category"),
+                cocktail_name = request.form.get("cocktail_name"),
+                ingredients = request.form.get("ingredients"),
+                method = request.form.get("method"),
+                picture = request.form.get("picture")
+            )
+            flash('Cocktail recipe submitted!')
+            db.session.add(cocktail)
+            db.session.commit()
+
         return render_template("add_cocktail.html", categories=categories)
-    
+
     return redirect(url_for("log_in"))
