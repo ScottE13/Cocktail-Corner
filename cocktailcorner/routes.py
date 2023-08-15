@@ -92,3 +92,15 @@ def manage_categories():
         return render_template("manage_categories.html")
     else:
         return redirect(url_for("log_in"))
+
+@app.route("/add_category", methods=["GET", "POST"])
+def add_category():
+
+    if "current_user" in session and session["current_user"] == "_owner" and request.method == "POST":
+        category = Category(category_name=request.form.get("category_name"))
+        db.session.add(category)
+        db.session.commit()
+        flash("Category added successfully.")
+        return redirect(url_for("manage_categories"))
+    else:
+        return redirect(url_for("log_in"))
