@@ -111,6 +111,18 @@ def add_category():
         return redirect(url_for("log_in"))
 
 
+@app.route("/edit_category/<int:category_id>", methods=["GET", "POST"])
+def edit_category(category_id):
+    if "current_user" in session and session["current_user"] == "_owner":
+        category = Category.query.get_or_404(category_id)
+        if request.method == "POST":
+            category.category_name = request.form.get("category_name")
+            db.session.commit()
+            flash("Category updated successfully.")
+            return redirect(url_for("manage_categories"))
+    return render_template("edit_category.html", category=category)
+
+
 @app.route("/delete_category/<int:category_id>")
 def delete_category(category_id):
     if "current_user" in session and session["current_user"] == "_owner":
@@ -120,4 +132,3 @@ def delete_category(category_id):
         flash("Category deleted successfully.")
     
     return redirect(url_for("manage_categories"))
-    
