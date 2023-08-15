@@ -73,6 +73,7 @@ def log_in():
 
 @app.route("/account/<username>", methods=["GET", "POST"])
 def account(username):
+    # User account page
     if "current_user" in session:
         return render_template("account.html", username=session["current_user"])
 
@@ -100,7 +101,7 @@ def manage_categories():
 
 @app.route("/add_category", methods=["GET", "POST"])
 def add_category():
-
+    # Only allow site owner to manage categories
     if "current_user" in session and session["current_user"] == "_owner" and request.method == "POST":
         category = Category(category_name=request.form.get("category_name"))
         db.session.add(category)
@@ -113,6 +114,7 @@ def add_category():
 
 @app.route("/edit_category/<int:category_id>", methods=["GET", "POST"])
 def edit_category(category_id):
+    # Only allow site owner to manage categories
     if "current_user" in session and session["current_user"] == "_owner":
         category = Category.query.get_or_404(category_id)
         if request.method == "POST":
@@ -125,6 +127,7 @@ def edit_category(category_id):
 
 @app.route("/delete_category/<int:category_id>")
 def delete_category(category_id):
+    # Only allow site owner to manage categories
     if "current_user" in session and session["current_user"] == "_owner":
         category = Category.query.get_or_404(category_id)
         db.session.delete(category)
@@ -132,3 +135,13 @@ def delete_category(category_id):
         flash("Category deleted successfully.")
     
     return redirect(url_for("manage_categories"))
+
+
+@app.route("/add_cocktail.html")
+def add_cocktail():
+    # Only allow logged in users to access this page
+    if "current_user" in session:
+        categories = list(Category.query.order_by(Category.category_name).all())
+        return render_template("add_cocktail.html", categories=categories)
+    
+    return redirect(url_for("log_in"))
