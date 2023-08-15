@@ -89,7 +89,8 @@ def logout():
 def manage_categories():
     # Only allow site owner to access this page
     if "current_user" in session and session["current_user"] == "_owner":
-        return render_template("manage_categories.html")
+        categories = list(Category.query.order_by(Category.category_name).all())
+        return render_template("manage_categories.html", categories=categories)
     else:
         return redirect(url_for("log_in"))
 
