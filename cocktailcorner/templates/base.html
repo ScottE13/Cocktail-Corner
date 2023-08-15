@@ -24,6 +24,9 @@
                     {% if session.current_user %}
                     <li><a href="{{ url_for('account', username=session['current_user']) }}">Account</a></li>
                     <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                        {% if session.current_user == "_owner" %}
+                        <li><a href="{{ url_for('manage_categories') }}">Manage Categories</a></li>
+                        {% endif %}
                     {% else %}
                     <li><a href="{{ url_for('register') }}">Register</a></li>
                     <li><a href="{{ url_for('log_in') }}">Log In</a></li>
