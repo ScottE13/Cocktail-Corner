@@ -84,3 +84,11 @@ def logout():
     session.pop('_flashes', None)
     flash("You have successfully logged out!")
     return redirect(url_for("log_in"))
+
+@app.route("/manage_categories")
+def manage_categories():
+    # Only allow site owner to access this page
+    if "current_user" in session and session["current_user"] == "_owner":
+        return render_template("manage_categories.html")
+    else:
+        return redirect(url_for("log_in"))
