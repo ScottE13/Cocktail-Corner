@@ -70,12 +70,14 @@ def log_in():
 
     return render_template("log_in.html")
 
+
 @app.route("/account/<username>", methods=["GET", "POST"])
 def account(username):
     if "current_user" in session:
         return render_template("account.html", username=session["current_user"])
 
     return redirect(url_for("log_in"))
+
 
 @app.route("/log_out")
 def logout():
@@ -85,6 +87,7 @@ def logout():
     flash("You have successfully logged out!")
     return redirect(url_for("log_in"))
 
+
 @app.route("/manage_categories")
 def manage_categories():
     # Only allow site owner to access this page
@@ -93,6 +96,7 @@ def manage_categories():
         return render_template("manage_categories.html", categories=categories)
     else:
         return redirect(url_for("log_in"))
+
 
 @app.route("/add_category", methods=["GET", "POST"])
 def add_category():
@@ -105,3 +109,15 @@ def add_category():
         return redirect(url_for("manage_categories"))
     else:
         return redirect(url_for("log_in"))
+
+
+@app.route("/delete_category/<int:category_id>")
+def delete_category(category_id):
+    if "current_user" in session and session["current_user"] == "_owner":
+        category = Category.query.get_or_404(category_id)
+        db.session.delete(category)
+        db.session.commit()
+        flash("Category deleted successfully.")
+    
+    return redirect(url_for("manage_categories"))
+    
