@@ -21,6 +21,7 @@
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">Menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('cocktails') }}">Cocktails</a></li>
                     {% if session.current_user %}
                     <li><a href="{{ url_for('add_cocktail') }}">Add Cocktail</a></li>
                     <li><a href="{{ url_for('account', username=session['current_user']) }}">Account</a></li>

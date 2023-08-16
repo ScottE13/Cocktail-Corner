@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="center-align">Take a look at our recipies!</h3>
+
+<div class="row">
+    {% for cocktail in cocktails %}
+    <div class="col s3">
+        <div class="card center-align">
+            <div class="card-image">
+                <img src="{{ cocktail.picture }}">
+            </div>
+            <div class="card-content">
+                <span class="card-title">{{ cocktail.cocktail_name }}</span>
+              </div>
+            <div class="card-action">
+                
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

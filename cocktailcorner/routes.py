@@ -158,3 +158,9 @@ def add_cocktail():
         return render_template("add_cocktail.html", categories=categories)
 
     return redirect(url_for("log_in"))
+
+
+@app.route("/cocktails.html")
+def cocktails():
+    cocktails = list(Cocktail.query.order_by(Cocktail.cocktail_name).all())
+    return render_template("cocktails.html", cocktails=cocktails)
